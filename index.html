@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartClass - Interactive Educational Platform</title>
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="enhancements.css">
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- BARRA DE NAVEGACIÓN INSTITUCIONAL SmartClass / SMARTCLASS -->
+  <!-- ========================================== -->
+  <header class="smart-navbar">
+    <div class="nav-container">
+      <!-- Logo y Marca SmartClass -->
+      <a href="javascript:void(0)" class="brand-logo" onclick="handleLogoClick()">
+        <div class="cbn-logo-badge">
+          <img src="logo.png" alt="SmartClass logo" width="34" height="34" style="object-fit:contain;display:block">
+        </div>
+        <div class="brand-title-wrap">
+          <div class="brand-name-row">
+            <span class="siie-title-txt">SmartClass</span>
+            <span class="cbn-subbrand">Educational Platform</span>
+          </div>
+          <span class="brand-badge" id="navBrandBadge">Academic Platform</span>
+        </div>
+      </a>
+
+      <!-- Panel de Usuario Autenticado -->
+      <div class="nav-user-panel" id="navUserPanel" style="display:none;">
+        <div class="user-pill">
+          <div class="user-mini-avatar" id="navMiniAvatar">
+            <!-- Renderizado dinámico de Avatar -->
+          </div>
+          <div class="user-meta">
+            <span class="user-name-tag" id="navUserName">...</span>
+            <span class="user-sub-tag" id="navUserRole">...</span>
+          </div>
+        </div>
+
+        <button class="btn-auth-switch" onclick="logoutUser()" title="Log out and return to the home page" style="background:#ef4444; color:#fff;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Log Out</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- CONTENIDO PRINCIPAL -->
+  <!-- ========================================== -->
+  <main class="app-main">
+
+    <!-- 1. PANTALLA DE INICIO (PORTAL GATEWAY Y LOGIN AISLADO SmartClass ) -->
+    <div id="loginScreenView">
+
+      <!-- 1.1 VISTA PORTAL SmartClass (Imagen 1 de referencia: Selección de Estudiantes / Docentes / Administrativos) -->
+      <div id="portalGatewayView" class="portal-gateway-wrapper">
+        <div class="portal-gateway-hero">
+          <div class="portal-hero-crest">
+            <img src="logo.png" alt="SmartClass logo" width="56" height="56" style="object-fit:contain;display:block">
+          </div>
+          <h1>WELCOME TO SMARTCLASS</h1>
+          <p class="portal-hero-desc">SmartClass is an educational platform that helps students learn in a fun and easy way: they play, solve quizzes and challenges, share notes, help each other and earn points, stars and rewards. It also helps teachers organize their classes and activities.</p>
+          <div class="hero-chips"><span>🎮 Quizzes & challenges</span><span>📚 Shared notes</span><span>🤝 Peer tutoring</span><span>⭐ Points & rewards</span></div>
+        </div>
+
+        <!-- Rejilla de Portales (Estudiantes, Docentes, Administrativos) -->
+        <div class="portal-roles-grid">
+          <!-- Tarjeta Estudiantes -->
+          <div class="portal-role-card" onclick="showLoginRole('estudiante')">
+            <div class="portal-card-art art-student"><span>🎒</span><i>⭐</i><b>🏆</b></div>
+            <div class="portal-card-body">
+              <h3>STUDENTS</h3>
+              <p>Check your grades, open your exams, download homework and compete with your classmates.</p>
+              <button class="portal-card-btn" type="button">Enter the Platform</button>
+            </div>
+          </div>
+
+          <!-- Tarjeta Docentes -->
+          <div class="portal-role-card" onclick="showLoginRole('docente')">
+            <div class="portal-card-art art-teacher"><span>👩‍🏫</span><i>📚</i><b>✏️</b></div>
+            <div class="portal-card-body">
+              <h3>DOCENTES</h3>
+              <p>Grade exams and homework, publish assessments and create activities.</p>
+              <button class="portal-card-btn" type="button">Enter the Platform</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accesos directos de prueba rápida -->
+        <div class="demo-quick-logins" style="margin-top:2.5rem; text-align:center;">
+          <div style="margin-bottom:1rem"><a href="javascript:void(0)" onclick="showLoginRole('admin')" style="font-weight:700;color:#3730a3;font-size:.9rem">🛡️ Administrator access</a></div>
+          <div class="demo-quick-title" style="color:var(--text-muted); font-size:0.85rem; margin-bottom:0.6rem;">Instant demo shortcuts:</div>
+          <div class="demo-pills-row" style="justify-content:center;">
+            <button class="demo-pill-btn" onclick="quickLoginDemo('student5')">
+              🎒 Grade 5 Student (With Exams and Homework)
+            </button>
+            <button class="demo-pill-btn" onclick="quickLoginDemo('student1')">
+              🎒 Grade 1 Student
+            </button>
+            <button class="demo-pill-btn" onclick="quickLoginDemo('student11')">
+              🎒 Grade 11 Student
+            </button>
+            <button class="demo-pill-btn" onclick="quickLoginDemo('teacher')">
+              👨‍🏫 Head Teacher (Grading)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.2 VISTA LOGIN ESTUDIANTES (Imagen 2 de referencia: Tarjeta SmartClass con fondo institucional) -->
+      <div id="studentLoginCardView" class="cbn-student-login-backdrop" style="display:none;">
+        <div class="cbn-student-glass-card">
+          <!-- Logo SmartClass Diamante -->
+          <div class="cbn-glass-logo">
+            <img src="logo.png" alt="SmartClass logo" width="70" height="70" style="object-fit:contain;display:block">
+          </div>
+          <h2 class="cbn-corp-title">SMARTCLASS</h2>
+          <div class="cbn-corp-role">Students</div>
+
+          <form id="studentDedicatedLoginForm" onsubmit="handleDedicatedStudentLogin(event)">
+            <div class="cbn-input-group">
+              <span class="cbn-input-icon">👤</span>
+              <input type="text" id="cbnStudentName" class="cbn-input-field" placeholder="Username or Full Name" required value="Camila Morales" />
+            </div>
+
+            <div class="cbn-input-group">
+              <span class="cbn-input-icon">✉️</span>
+              <input type="email" id="cbnStudentEmail" class="cbn-input-field" placeholder="Institutional email" required value="camila.morales@estudiante.edu" />
+            </div>
+
+            <div class="cbn-input-group">
+              <span class="cbn-input-icon">🔒</span>
+              <input type="password" id="cbnStudentPassword" class="cbn-input-field" placeholder="Password" required value="********" />
+            </div>
+
+            <!-- Grado Escolar del Estudiante (1° a 11°) -->
+            <div class="form-group" style="text-align:left; margin-bottom:1rem;">
+              <label for="cbnStudentGrade" style="font-size:0.8rem; font-weight:800; color:#1e293b;">School Grade (1 to 11):</label>
+              <select id="cbnStudentGrade" class="cbn-select-field">
+                <option value="1">Grade 1 – Primary</option>
+                <option value="2">Grade 2 – Primary</option>
+                <option value="3">Grade 3 – Primary</option>
+                <option value="4">Grade 4 – Primary</option>
+                <option value="5" selected>Grade 5 – Primary</option>
+                <option value="6">Grade 6 – Middle School</option>
+                <option value="7">Grade 7 – Middle School</option>
+                <option value="8">Grade 8 – Middle School</option>
+                <option value="9">Grade 9 – Middle School</option>
+                <option value="10">Grade 10 – High School</option>
+                <option value="11">Grade 11 – High School (Vocational)</option>
+              </select>
+            </div>
+
+            <div class="cbn-forgot-row">
+              <a href="javascript:void(0)" onclick="showToast('A recovery token was sent to your email.', 'info')">Forgot your password?</a>
+            </div>
+
+            <button type="submit" class="cbn-btn-submit">
+              Log in
+            </button>
+          </form>
+
+          <p class="cbn-notice-text">
+            Accounts in <strong>SmartClass</strong> are created by the system administrator and are linked to an email address or mobile number where a security token will be sent if you forget your password. If you have connection problems, please contact the representative of <a href="javascript:void(0)" onclick="openModalPQR()" style="color:#d97706; text-decoration:underline;">Support</a>.
+          </p>
+
+          <div style="margin-top:1.25rem; border-top:1px solid rgba(0,0,0,0.08); padding-top:1rem;">
+            <button type="button" class="btn-secondary btn-sm" onclick="showPortalGateway()" style="width:100%; justify-content:center;">
+              ⬅️ Back to Role Selection
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.3 VISTA LOGIN DOCENTES -->
+      <div id="teacherLoginCardView" class="cbn-student-login-backdrop" style="display:none;">
+        <div class="cbn-student-glass-card" style="max-width:440px;">
+          <div class="cbn-glass-logo">
+            <img src="logo.png" alt="SmartClass logo" width="70" height="70" style="object-fit:contain">
+          </div>
+          <h2 class="cbn-corp-title">SMARTCLASS</h2>
+          <div class="cbn-corp-role" style="color:#0284c7;">Teacher Portal</div>
+
+          <form onsubmit="handleDedicatedTeacherLogin(event)">
+            <div class="cbn-input-group">
+              <span class="cbn-input-icon">👨‍🏫</span>
+              <input type="text" id="cbnTeacherName" class="cbn-input-field" placeholder="Teacher Name" required value="Prof. Roberto Mendoza" />
+            </div>
+
+            <div class="cbn-input-group">
+              <span class="cbn-input-icon">✉️</span>
+              <input type="email" id="cbnTeacherEmail" class="cbn-input-field" placeholder="Teacher Email" required value="roberto.mendoza@smartclass.edu" />
+            </div>
+
+            <div class="cbn-input-group">
+              <span class="cbn-input-icon">🔒</span>
+              <input type="password" class="cbn-input-field" placeholder="Teacher password" required value="********" />
+            </div>
+
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:1rem; text-align:left;">
+              📌 You will be able to manage and grade the exams and homework of <strong>Grades 1 to 11</strong>.
+            </p>
+
+            <button type="submit" class="cbn-btn-submit" style="background:#0284c7; box-shadow:0 4px 14px rgba(2,132,199,0.4);">
+              Log in as Teacher
+            </button>
+          </form>
+
+          <div style="margin-top:1.25rem; border-top:1px solid rgba(0,0,0,0.08); padding-top:1rem;">
+            <button type="button" class="btn-secondary btn-sm" onclick="showPortalGateway()" style="width:100%; justify-content:center;">
+              ⬅️ Back to Role Selection
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+      <!-- 1.4 ADMIN LOGIN -->
+      <div id="adminLoginCardView" class="cbn-student-login-backdrop" style="display:none;">
+        <div class="cbn-student-glass-card" style="max-width:440px;">
+          <div class="cbn-glass-logo"><img src="logo.png" alt="SmartClass logo" width="70" height="70" style="object-fit:contain"></div>
+          <h2 class="cbn-corp-title">SMARTCLASS</h2>
+          <div class="cbn-corp-role" style="color:#3730a3;">Administrator Portal</div>
+          <form onsubmit="handleAdminLogin(event)">
+            <div class="cbn-input-group"><span class="cbn-input-icon">🛡️</span><input type="text" id="cbnAdminName" class="cbn-input-field" placeholder="Administrator name" required value="Administrator" /></div>
+            <div class="cbn-input-group"><span class="cbn-input-icon">✉️</span><input type="email" id="cbnAdminEmail" class="cbn-input-field" placeholder="Administrator email" required value="admin@smartclass.edu" /></div>
+            <div class="cbn-input-group"><span class="cbn-input-icon">🔒</span><input type="password" class="cbn-input-field" placeholder="Password" required value="********" /></div>
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:1rem; text-align:left;">📌 Assign grades to each teacher and manage teacher accounts.</p>
+            <button type="submit" class="cbn-btn-submit" style="background:#3730a3;">Log in as Administrator</button>
+          </form>
+          <div style="margin-top:1.25rem; border-top:1px solid rgba(0,0,0,0.08); padding-top:1rem;">
+            <button type="button" class="btn-secondary btn-sm" onclick="showPortalGateway()" style="width:100%; justify-content:center;">⬅️ Back to Role Selection</button>
+          </div>
+        </div>
+      </div>
+
+    <!-- 2. DASHBOARD DEL USUARIO AUTENTICADO -->
+    <div id="appDashboardView" style="display:none;">
+
+      <!-- Selector de Grados (Visible ÚNICAMENTE para el Docente) -->
+      <div class="grade-strip-container" id="gradeStripContainer">
+        <div class="grade-strip-header">
+          <div class="grade-strip-title">
+            <span>🏫 Teacher Panel - Select the Grade to Manage:</span>
+            <span class="grade-strip-badge" id="activeGradeTitleBadge">Viewing Grade 5</span>
+          </div>
+          <div style="font-size:0.82rem; color:var(--text-muted);">
+            <em>Choose the grade to review homework, assign a tutor or publish new activities</em>
+          </div>
+        </div>
+        <div class="grade-pills-scroll" id="gradePillsContainer">
+          <!-- Botones Grados 1° a 11° -->
+        </div>
+      </div>
+
+      <!-- BARRA DE SECCIONES (SUB-NAV TABS) -->
+      <nav class="subnav-tabs-wrapper" id="subnavTabsContainer" aria-label="Classroom Sections">
+        <!-- Generado dinámicamente según sea Docente o Estudiante -->
+      </nav>
+
+      <!-- Contenedor del contenido modular activo -->
+      <div id="mainViewContainer">
+        <!-- Renderizado dinámico de la sección seleccionada -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- PIE DE PÁGINA SMARTCLASS -->
+  <!-- ========================================== -->
+  <footer class="smart-footer">
+    <p>
+      <strong>SmartClass</strong> — Interactive Educational Platform. Designed to make studying fun, collaborative and motivating for students and teachers from Grade 1 to Grade 11.
+    </p>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- MODALES DE OPERACIÓN -->
+  <!-- ========================================== -->
+
+  <!-- Modal 1: Crear Nueva Tarea (Docentes) -->
+  <div class="modal-overlay" id="newTaskModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📝 Create New Targeted Homework</h3>
+        <button class="modal-close-btn" onclick="closeNewTaskModal()">&times;</button>
+      </div>
+      <form onsubmit="handleCreateTaskSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="taskTitleInput">Homework Title</label>
+            <input type="text" id="taskTitleInput" class="form-control" placeholder="E.g. Water Cycle Experiment" required />
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+            <div class="form-group">
+              <label for="taskGradeSelect">Target School Grade (1 to 11)</label>
+              <select id="taskGradeSelect" class="form-control" onchange="updateSubjectDropdown('taskGradeSelect', 'taskSubjectSelect')">
+                <option value="1">Grade 1</option>
+                <option value="2">Grade 2</option>
+                <option value="3">Grade 3</option>
+                <option value="4">Grade 4</option>
+                <option value="5" selected>Grade 5</option>
+                <option value="6">Grade 6</option>
+                <option value="7">Grade 7</option>
+                <option value="8">Grade 8</option>
+                <option value="9">Grade 9</option>
+                <option value="10">Grade 10 (Technical High School)</option>
+                <option value="11">Grade 11 (Vocational High School)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="taskPointsInput">Reward Points</label>
+              <input type="number" id="taskPointsInput" class="form-control" value="50" min="10" max="200" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="taskSubjectSelect">Subject / Official Course of the Grade</label>
+            <select id="taskSubjectSelect" class="form-control" onchange="checkCustomSubjectOption('taskSubjectSelect', 'taskSubjectCustomInput')" style="font-weight:700; color:var(--navy);">
+              <!-- Opciones dinámicas de materias según el grado -->
+            </select>
+            <input type="text" id="taskSubjectCustomInput" class="form-control" placeholder="Type the name of another subject..." style="display:none; margin-top:0.4rem;" />
+            <div class="form-help" id="taskSubjectHelpText">Subjects adapt automatically to the curriculum of the selected grade.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="taskDueDateInput">Due Date</label>
+            <input type="date" id="taskDueDateInput" class="form-control" value="2026-11-20" required />
+          </div>
+
+          <div class="form-group">
+            <label for="taskDescInput">📝 Task — write it here (no file needed)</label>
+            <textarea id="taskDescInput" class="form-control" rows="3" placeholder="Type the task exactly as students should see it (e.g. Solve the following equation step by step: 2x + 5 = 17). You can also attach a file below, or both."></textarea>
+            <div class="form-help">You can type the task here, attach a file, or do both.</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeNewTaskModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Publish Homework</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Actualizar Grado de la Tarea (Docentes) -->
+  <div class="modal-overlay" id="editTaskGradeModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🔄 Update Assigned Grade</h3>
+        <button class="modal-close-btn" onclick="closeEditTaskGradeModal()">&times;</button>
+      </div>
+      <form onsubmit="handleUpdateTaskGradeSubmit(event)">
+        <div class="modal-body">
+          <p style="font-size:0.9rem; margin-bottom:1rem;">
+            Homework: <strong id="editGradeTaskTitle" style="color:var(--navy);">...</strong>
+          </p>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            You can reassign or change the school grade of this homework. Once updated, only students in the new grade will see it.
+          </p>
+
+          <div class="form-group">
+            <label for="editTaskGradeSelect">New Assigned Grade:</label>
+            <select id="editTaskGradeSelect" class="form-control">
+              <option value="1">Grade 1</option>
+              <option value="2">Grade 2</option>
+              <option value="3">Grade 3</option>
+              <option value="4">Grade 4</option>
+              <option value="5">Grade 5</option>
+              <option value="6">Grade 6</option>
+              <option value="7">Grade 7</option>
+              <option value="8">Grade 8</option>
+              <option value="9">Grade 9</option>
+              <option value="10">Grade 10</option>
+              <option value="11">Grade 11</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeEditTaskGradeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Update Homework Grade</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Asignar Tutor del Grado (Docentes) -->
+  <div class="modal-overlay" id="assignTutorModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>⭐ Assign Grade Tutor</h3>
+        <button class="modal-close-btn" onclick="closeAssignTutorModal()">&times;</button>
+      </div>
+      <form onsubmit="handleAssignTutorSubmit(event)">
+        <div class="modal-body">
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            As a teacher, you can appoint an outstanding student registered in <strong id="assignTutorGradeLabel">...</strong> as the <strong>Official Tutor</strong>.
+          </p>
+
+          <div class="form-group">
+            <label for="tutorStudentSelect">Select a Registered Student:</label>
+            <select id="tutorStudentSelect" class="form-control">
+              <!-- Opciones dinámicas de alumnos del grado -->
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeAssignTutorModal()">Cancel</button>
+          <button type="submit" class="btn-yellow">⭐ Confirm Tutor Appointment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Inscribir Alumno a un Grado (Docentes) -->
+  <div class="modal-overlay" id="addStudentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🎒 Enroll Student in the Grade Roster</h3>
+        <button class="modal-close-btn" onclick="closeAddStudentModal()">&times;</button>
+      </div>
+      <form onsubmit="handleAddStudentSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="newStdNameInput">Full Name</label>
+            <input type="text" id="newStdNameInput" class="form-control" placeholder="E.g. Anna Sophie Martin" required />
+          </div>
+
+          <div class="form-group">
+            <label for="newStdEmailInput">Email Address</label>
+            <input type="email" id="newStdEmailInput" class="form-control" placeholder="ana.martinez@estudiante.edu" required />
+          </div>
+
+          <div class="form-group">
+            <label for="newStdGradeSelect">Assigned School Grade</label>
+            <select id="newStdGradeSelect" class="form-control">
+              <option value="1">Grade 1</option>
+              <option value="2">Grade 2</option>
+              <option value="3">Grade 3</option>
+              <option value="4">Grade 4</option>
+              <option value="5">Grade 5</option>
+              <option value="6">Grade 6</option>
+              <option value="7">Grade 7</option>
+              <option value="8">Grade 8</option>
+              <option value="9">Grade 9</option>
+              <option value="10">Grade 10</option>
+              <option value="11">Grade 11</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeAddStudentModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Add to Roster</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 5: Montar Fotos y Entregar Tarea (Estudiantes) -->
+  <div class="modal-overlay" id="submitHomeworkModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📤 Upload Photos and Submit Homework</h3>
+        <button class="modal-close-btn" onclick="closeSubmitHomeworkModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSubmitHomework(event)">
+        <div class="modal-body">
+          <h4 id="submitTaskTitle" style="color:var(--navy); font-size:1.1rem; margin-bottom:0.25rem;">...</h4>
+          <span id="submitTaskSubject" style="font-size:0.8rem; color:var(--text-muted); display:block; margin-bottom:1.25rem;">...</span>
+
+          <div class="form-group">
+            <label>Upload / Attach a Photo of the Homework (Evidence)</label>
+            <div class="image-upload-dropzone" onclick="document.getElementById('homeworkPhotoInput').click()">
+              <div style="font-size:2rem; margin-bottom:0.4rem;">📷</div>
+              <strong>Click here to select or take a photo</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">Formats: JPG, PNG, WEBP (notebook photos, models, exercises)</div>
+            </div>
+            <input type="file" id="homeworkPhotoInput" accept="image/*" style="display:none;" onchange="handlePhotoUploadChange(event, 'homeworkPhotoPreview')" />
+            
+            <div id="homeworkPhotoPreview" class="image-preview-box" style="display:none;"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="submitTaskComments">Comments or Explanation for your Teacher</label>
+            <textarea id="submitTaskComments" class="form-control" rows="3" placeholder="Write your comments or questions about the homework here..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeSubmitHomeworkModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Send Submission to Teacher</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 6: Montar Material con Fotos / Apuntes (Estudiantes) -->
+  <div class="modal-overlay" id="uploadMaterialModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📷 Upload a Photo of Your Study Notes</h3>
+        <button class="modal-close-btn" onclick="closeUploadMaterialModal()">&times;</button>
+      </div>
+      <form onsubmit="handleUploadMaterialSubmit(event)">
+        <div class="modal-body">
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            Share photos of your notes or diagrams with your classmates. You earn <strong>5 stars</strong> every time they use your material!
+          </p>
+
+          <div class="form-group">
+            <label for="matTitleInput">Material Title</label>
+            <input type="text" id="matTitleInput" class="form-control" placeholder="E.g. Animal and Plant Cell Diagram" required />
+          </div>
+
+          <div class="form-group">
+            <label for="matSubjectSelect">Subject / Course of your Grade</label>
+            <select id="matSubjectSelect" class="form-control" onchange="checkCustomSubjectOption('matSubjectSelect', 'matSubjectCustomInput')" style="font-weight:700; color:var(--navy);">
+              <!-- Materias dinámicas del grado -->
+            </select>
+            <input type="text" id="matSubjectCustomInput" class="form-control" placeholder="Type another subject..." style="display:none; margin-top:0.4rem;" />
+          </div>
+
+          <div class="form-group">
+            <label>Photo of the Notes</label>
+            <div class="image-upload-dropzone" onclick="document.getElementById('materialPhotoInput').click()">
+              <div style="font-size:2rem; margin-bottom:0.4rem;">🖼️</div>
+              <strong>Click to upload the photo of your summary</strong>
+            </div>
+            <input type="file" id="materialPhotoInput" accept="image/*" style="display:none;" onchange="handleMaterialPhotoChange(event)" />
+            <div id="materialPhotoPreview" class="image-preview-box" style="display:none;"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="matDescInput">Short description</label>
+            <textarea id="matDescInput" class="form-control" rows="2" placeholder="Explain what these notes are about..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeUploadMaterialModal()">Cancel</button>
+          <button type="submit" class="btn-yellow">Publish and Earn Stars ⭐</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 7: Crear Examen Personalizado (Docentes) -->
+  <div class="modal-overlay" id="createExamModal">
+    <div class="modal-content" style="max-width:650px;">
+      <div class="modal-header">
+        <h3>📋 Create New Custom Exam</h3>
+        <button class="modal-close-btn" onclick="closeCreateExamModal()">&times;</button>
+      </div>
+      <form onsubmit="handleCreateExamSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="examTitleInput">Exam Title</label>
+            <input type="text" id="examTitleInput" class="form-control" placeholder="E.g. Periodic Natural Sciences Assessment" required />
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+            <div class="form-group">
+              <label for="examGradeSelect">Target Grade (1 to 11)</label>
+              <select id="examGradeSelect" class="form-control" onchange="updateSubjectDropdown('examGradeSelect', 'examSubjectSelect')">
+                <option value="1">Grade 1</option>
+                <option value="2">Grade 2</option>
+                <option value="3">Grade 3</option>
+                <option value="4">Grade 4</option>
+                <option value="5" selected>Grade 5</option>
+                <option value="6">Grade 6</option>
+                <option value="7">Grade 7</option>
+                <option value="8">Grade 8</option>
+                <option value="9">Grade 9</option>
+                <option value="10">Grade 10</option>
+                <option value="11">Grade 11</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="examSubjectSelect">Subject / Course of the Grade</label>
+              <select id="examSubjectSelect" class="form-control" onchange="checkCustomSubjectOption('examSubjectSelect', 'examSubjectCustomInput')" style="font-weight:700; color:var(--navy);">
+                <!-- Materias dinámicas -->
+              </select>
+              <input type="text" id="examSubjectCustomInput" class="form-control" placeholder="Type another subject..." style="display:none; margin-top:0.4rem;" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="examDescInput">Instructions for students</label>
+            <textarea id="examDescInput" class="form-control" rows="2" placeholder="Read carefully and answer each question..." required></textarea>
+          </div>
+
+          <div style="margin-top:1.25rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+              <strong style="color:var(--navy);">Exam Questions:</strong>
+              <button type="button" class="btn-secondary btn-sm" onclick="addQuestionFieldToExam()">➕ Add Another Question</button>
+            </div>
+            <div id="examQuestionsListContainer">
+              <!-- Contenedor dinámico de preguntas -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeCreateExamModal()">Cancel</button>
+          <button type="submit" class="btn-primary">💾 Publish Exam to the Grade</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 8: Enviar Invitación a Competir / Duelo (Estudiantes) -->
+  <div class="modal-overlay" id="inviteDuelModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>⚔️ Invite a Classmate to Compete</h3>
+        <button class="modal-close-btn" onclick="closeInviteDuelModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSendDuelInviteSubmit(event)">
+        <div class="modal-body">
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            Choose one of your grade classmates and a topic to challenge them to a knowledge duel. Win points and trophies!
+          </p>
+
+          <div class="form-group">
+            <label for="duelOpponentSelect">Select the Classmate to Challenge:</label>
+            <select id="duelOpponentSelect" class="form-control">
+              <!-- Opciones dinámicas de compañeros de grado -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="duelTopicSelect">Competition Topic:</label>
+            <select id="duelTopicSelect" class="form-control">
+              <option value="Mental Math and Numbers">Mental Math and Numbers 🧮</option>
+              <option value="Science and Nature Challenge">Science and Nature Challenge 🌍</option>
+              <option value="Spelling and Quick Vocabulary">Spelling and Quick Vocabulary ✍️</option>
+              <option value="Quick General Knowledge Questions">Quick General Knowledge Questions 💡</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeInviteDuelModal()">Cancel</button>
+          <button type="submit" class="btn-primary">⚔️ Send Competition Challenge</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 9: Crear Sesión de Tutoría e Invitar Compañeros (Estudiantes y Tutores) -->
+  <div class="modal-overlay" id="createTutoringModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🤝 Create Tutoring Session and Invite</h3>
+        <button class="modal-close-btn" onclick="closeCreateTutoringModal()">&times;</button>
+      </div>
+      <form onsubmit="handleCreateTutoringSubmit(event)">
+        <div class="modal-body">
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            Organize a group study session or tutoring. Invite your grade classmates to review together.
+          </p>
+
+          <div class="form-group">
+            <label for="tutorSessionTitle">Study Meeting Title</label>
+            <input type="text" id="tutorSessionTitle" class="form-control" placeholder="E.g. Fractions and Geometry Review" required />
+          </div>
+
+          <div class="form-group">
+            <label for="tutorSessionSubjectSelect">Subject / Course of the Grade</label>
+            <select id="tutorSessionSubjectSelect" class="form-control" onchange="checkCustomSubjectOption('tutorSessionSubjectSelect', 'tutorSessionCustomInput')" style="font-weight:700; color:var(--navy);">
+              <!-- Materias dinámicas -->
+            </select>
+            <input type="text" id="tutorSessionCustomInput" class="form-control" placeholder="Type another subject..." style="display:none; margin-top:0.4rem;" />
+          </div>
+
+          <div class="form-group">
+            <label for="tutorSessionTime">Proposed Date and Time</label>
+            <input type="datetime-local" id="tutorSessionTime" class="form-control" required />
+          </div>
+
+          <div class="form-group">
+            <label for="tutorSessionDesc">Goal of the support session</label>
+            <textarea id="tutorSessionDesc" class="form-control" rows="2" placeholder="We will solve the homework questions and review the workshop..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeCreateTutoringModal()">Cancel</button>
+          <button type="submit" class="btn-yellow">📢 Publish and Invite Everyone</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 10: Visor de Foto Ampliada -->
+  <div class="modal-overlay" id="photoViewerModal" onclick="closePhotoViewerModal()">
+    <div style="max-width:90vw; max-height:90vh; display:flex; flex-direction:column; align-items:center; position:relative;" onclick="event.stopPropagation()">
+      <button style="position:absolute; top:-40px; right:0; background:rgba(255,255,255,0.25); border:none; color:#fff; font-size:1.8rem; cursor:pointer; padding:0 0.5rem; border-radius:4px;" onclick="closePhotoViewerModal()">&times;</button>
+      <img id="fullscreenPhotoImg" src="" alt="Enlarged photo" style="max-width:90vw; max-height:85vh; border-radius:var(--radius-md); box-shadow:0 10px 30px rgba(0,0,0,0.5); object-fit:contain;" />
+    </div>
+  </div>
+
+  <!-- Modal 11: Realizar y Resolver Examen (Estudiantes) -->
+  <div class="modal-overlay" id="studentExamRunnerModal">
+    <div class="modal-content exam-runner-modal-box">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#e0f2fe; color:#0284c7; margin-bottom:0.25rem;">📝 Official Exam in Progress</span>
+          <h3 id="examRunnerTitle" style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">...</h3>
+          <span id="examRunnerMeta" style="font-size:0.8rem; color:var(--text-muted);">...</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeStudentExamModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSubmitStudentExam(event)">
+        <div class="modal-body">
+          <div style="background:#fffbeb; border:1px solid #fde047; padding:0.85rem 1rem; border-radius:var(--radius-sm); margin-bottom:1.25rem; font-size:0.85rem;">
+            <strong>📌 Teacher's Instructions:</strong> <span id="examRunnerInstructions">...</span>
+          </div>
+
+          <div id="examRunnerProgressWrap" style="margin-bottom:1.25rem;">
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700; color:var(--navy); margin-bottom:0.35rem;">
+              <span id="examRunnerProgressLabel">Progress: 0 of 0 answered</span>
+              <span id="examRunnerTimer">⏱️ In progress</span>
+            </div>
+            <div style="height:6px; background:#e2e8f0; border-radius:var(--radius-full); overflow:hidden;">
+              <div id="examRunnerProgressBar" style="height:100%; width:0%; background:var(--primary-blue); transition:width 0.3s ease;"></div>
+            </div>
+          </div>
+
+          <div id="examRunnerQuestionsContainer">
+            <!-- Preguntas generadas dinámicamente con opciones interactivas -->
+          </div>
+
+          <div class="form-group" style="margin-top:1.25rem;">
+            <label for="examRunnerComments" style="font-size:0.85rem; font-weight:700; color:var(--navy);">
+              💬 Comments or Justifications for your Teacher (Optional):
+            </label>
+            <textarea id="examRunnerComments" class="form-control" rows="2" placeholder="Write here if you have questions or explanations about any answer..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeStudentExamModal()">Save Draft and Exit</button>
+          <button type="submit" class="btn-primary" style="padding:0.75rem 1.5rem; font-weight:800;">
+            📤 Finish and Send Exam to Teacher
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 12: Ver Corrección y Respuestas del Examen (Estudiantes) -->
+  <div class="modal-overlay" id="viewExamCorrectionModal">
+    <div class="modal-content" style="max-width:750px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#d1fae5; color:#065f46; margin-bottom:0.25rem;">🔍 Exam Review</span>
+          <h3 id="correctionExamTitle" style="color:var(--navy); font-size:1.2rem; font-weight:800; margin-top:0.2rem;">...</h3>
+          <span id="correctionExamMeta" style="font-size:0.8rem; color:var(--text-muted);">...</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeExamCorrectionModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="correctionExamBody">
+        <!-- Renderizado dinámico de respuestas, nota y comentarios del profesor -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" onclick="closeExamCorrectionModal()">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 13: Calificar Examen del Estudiante (Docentes) -->
+  <div class="modal-overlay" id="teacherGradeExamModal">
+    <div class="modal-content" style="max-width:750px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#e0f2fe; color:#0284c7; margin-bottom:0.25rem;">👨‍🏫 Teacher Exam Review</span>
+          <h3 id="teacherGradeModalTitle" style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">...</h3>
+          <span id="teacherGradeModalMeta" style="font-size:0.8rem; color:var(--text-muted);">...</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeTeacherGradeExamModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="teacherGradeModalBody">
+        <!-- Preguntas, respuestas del estudiante y campos de nota -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 14: Planes Curriculares Oficiales por Grado (Estudiantes) -->
+  <div class="modal-overlay" id="modalPlanesCurriculares">
+    <div class="modal-content" style="max-width:750px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#fffbeb; color:#b45309;">📖 Curriculum</span>
+          <h3 id="curriculumModalTitle" style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">Grade Curriculum Plan</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalPlanesCurriculares')">&times;</button>
+      </div>
+      <div class="modal-body" id="curriculumModalBody">
+        <!-- Asignaturas oficiales de 1° a 11° generadas dinámicamente -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModalService('modalPlanesCurriculares')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 15: Horario de Clases y Exámenes (Estudiantes) -->
+  <div class="modal-overlay" id="modalHorario">
+    <div class="modal-content" style="max-width:800px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#e0f2fe; color:#0284c7;">📅 Schedules</span>
+          <h3 id="scheduleModalTitle" style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">Weekly Class Schedule</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalHorario')">&times;</button>
+      </div>
+      <div class="modal-body" id="scheduleModalBody">
+        <!-- Horario semanal lunes a viernes generado dinámicamente -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModalService('modalHorario')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 16: Solicitudes de Certificados (Estudiantes) -->
+  <div class="modal-overlay" id="modalCertificados">
+    <div class="modal-content" style="max-width:620px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#fef3c7; color:#b45309;">📜 Procedures and Certificates</span>
+          <h3 style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">Academic Certificate Request</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalCertificados')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+          Get your study certificate, enrollment confirmation or grade report for your current grade instantly.
+        </p>
+        <div class="form-group">
+          <label>Type of Certificate Required:</label>
+          <select id="certTypeSelect" class="form-control">
+            <option value="estudio">Official Study Certificate (Current Year)</option>
+            <option value="matricula">Active Enrollment Confirmation</option>
+            <option value="calificaciones">Partial Grades Certificate</option>
+            <option value="pazysalvo">Academic Good-Standing Certificate</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Destination or Entity requesting it:</label>
+          <input type="text" id="certDestInput" class="form-control" placeholder="E.g. Health insurer, Family fund or Personal" value="For whatever purposes it may serve" />
+        </div>
+        <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:var(--radius-sm); padding:0.85rem; font-size:0.82rem; color:#166534; margin-top:1rem;">
+          ✅ Document with institutional digital signature and authenticity QR code issued by SmartClass.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModalService('modalCertificados')">Cancel</button>
+        <button type="button" class="btn-primary" onclick="generateStudentCertificate()">📥 Generate and Download Certificate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 17: PQR y Solicitudes Académicas (Estudiantes) -->
+  <div class="modal-overlay" id="modalPQR">
+    <div class="modal-content" style="max-width:620px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#ede9fe; color:#8b5cf6;">💬 Student Support</span>
+          <h3 style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">Requests, Complaints and Claims</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalPQR')">&times;</button>
+      </div>
+      <form onsubmit="handlePQRSubmit(event)">
+        <div class="modal-body">
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            Your opinion is essential to us. Send any academic or administrative request.
+          </p>
+          <div class="form-group">
+            <label>Type of Request:</label>
+            <select id="pqrTypeSelect" class="form-control">
+              <option value="Request">Request / Academic Inquiry</option>
+              <option value="Complaint">Service Complaint</option>
+              <option value="Claim">Claim about Grades or Exam</option>
+              <option value="Suggestion">Suggestion for Improvement</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Subject:</label>
+            <input type="text" id="pqrSubjectInput" class="form-control" placeholder="E.g. Request to review an exam or support in a subject" required />
+          </div>
+          <div class="form-group">
+            <label>Details of the request:</label>
+            <textarea id="pqrMessageInput" class="form-control" rows="3" placeholder="Clearly describe your case so we can answer you quickly..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModalService('modalPQR')">Cancel</button>
+          <button type="submit" class="btn-primary">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 18: Biblioteca Virtual SmartClass (Estudiantes) -->
+  <div class="modal-overlay" id="modalBiblioteca">
+    <div class="modal-content" style="max-width:750px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#e0f2fe; color:#0284c7;">📚 Educational Resources</span>
+          <h3 style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">SmartClass Virtual Library</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalBiblioteca')">&times;</button>
+      </div>
+      <div class="modal-body" id="bibliotecaModalBody">
+        <!-- Recursos, libros y apuntes digitales -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModalService('modalBiblioteca')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 19: Cartera y Matrícula (Estudiantes) -->
+  <div class="modal-overlay" id="modalCartera">
+    <div class="modal-content" style="max-width:600px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#d1fae5; color:#065f46;">💳 Financial Status</span>
+          <h3 style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">Account Statement and Billing</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalCartera')">&times;</button>
+      </div>
+      <div class="modal-body" id="carteraModalBody">
+        <!-- Renderizado dinámico de estado financiero -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModalService('modalCartera')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 20: Evaluación de Calidad Docente (Estudiantes) -->
+  <div class="modal-overlay" id="modalEvaluacionDocente">
+    <div class="modal-content" style="max-width:640px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#fef3c7; color:#b45309;">⭐ Institutional Quality</span>
+          <h3 style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">Teacher Performance Evaluation</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalEvaluacionDocente')">&times;</button>
+      </div>
+      <form onsubmit="handleTeacherEvaluationSubmit(event)">
+        <div class="modal-body">
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+            Evaluate your teachers on clarity, punctuality, subject mastery and pedagogical support.
+          </p>
+          <div class="form-group">
+            <label>Teacher to Evaluate:</label>
+            <select class="form-control" id="evalTeacherSelect">
+              <option value="Prof. Roberto Mendoza">Prof. Roberto Mendoza (Head Teacher)</option>
+              <option value="Prof. Carolina Gómez">Prof. Carolina Gómez (Language Arts)</option>
+              <option value="Prof. David Herrera">Prof. David Herrera (Technology and Math)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>1. Does the teacher explain topics clearly and answer your questions?</label>
+            <select class="form-control"><option>⭐⭐⭐⭐⭐ Excellent (5/5)</option><option>⭐⭐⭐⭐ Good (4/5)</option><option>⭐⭐⭐ Fair (3/5)</option></select>
+          </div>
+          <div class="form-group">
+            <label>2. Does the feedback on homework and exams help you improve?</label>
+            <select class="form-control"><option>⭐⭐⭐⭐⭐ Always gives clear feedback</option><option>⭐⭐⭐⭐ Often</option></select>
+          </div>
+          <div class="form-group">
+            <label>Additional comments for the teacher:</label>
+            <textarea class="form-control" rows="2" placeholder="Write your words of thanks or constructive suggestions..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModalService('modalEvaluacionDocente')">Cancel</button>
+          <button type="submit" class="btn-primary">Send Evaluation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 21: Actualización de Datos Básicos y Contraseña -->
+  <div class="modal-overlay" id="modalActualizarDatos">
+    <div class="modal-content" style="max-width:550px;">
+      <div class="modal-header">
+        <div>
+          <span class="brand-badge" style="background:#e0f2fe; color:#0284c7;">👤 My Profile</span>
+          <h3 style="color:var(--navy); font-size:1.25rem; font-weight:800; margin-top:0.2rem;">Student Data Update</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModalService('modalActualizarDatos')">&times;</button>
+      </div>
+      <form onsubmit="handleUpdateProfileDataSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Full Name:</label>
+            <input type="text" id="profileModalName" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address:</label>
+            <input type="email" id="profileModalEmail" class="form-control" readonly style="background:#f1f5f9;" />
+          </div>
+          <div class="form-group">
+            <label>Phone / Mobile Number:</label>
+            <input type="tel" id="profileModalPhone" class="form-control" placeholder="E.g. 312 456 7890" value="315 889 0012" />
+          </div>
+          <div class="form-group">
+            <label>Home Address:</label>
+            <input type="text" id="profileModalAddress" class="form-control" placeholder="E.g. 14 Main St # 25-18" value="5 Oak Ave # 22-40" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModalService('modalActualizarDatos')">Cancel</button>
+          <button type="submit" class="btn-primary">Save Updated Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script Principal -->
+  <script src="app.js"></script>
+  <script src="enhancements.js"></script>
+  <script src="fixes.js"></script>
+  <script src="teacher.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
